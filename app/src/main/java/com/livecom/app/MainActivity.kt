@@ -13,6 +13,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -41,7 +42,7 @@ class MainActivity : Activity() {
             auth.signInAnonymously()
                 .addOnSuccessListener { showHome() }
                 .addOnFailureListener { error ->
-                    showError("تعذر الاتصال بخدمة الحسابات: ${error.localizedMessage ?: "تحقق من الإنترنت وإعدادات Firebase"}")
+                    showError(authErrorMessage(error))
                 }
         }
     }
@@ -198,6 +199,30 @@ class MainActivity : Activity() {
                 currentRoomId = null
                 showHome()
             }
+    }
+
+    private fun authErrorMessage(error: Exception): String {
+        val authError = error as? FirebaseAuthException
+        val code = authError?.errorCode.orEmpty()
+        val details = error.localizedMessage.orEmpty()
+
+        return if (
+            code.contains("OPERATION_NOT_ALLOWED", ignoreCase = true) ||
+            code.contains("ADMIN_ONLY_OPERATION", ignoreCase = true) ||
+            details.contains("ADMIN_ONLY_OPERATION", ignoreCase = true) ||
+            details.contains("administrators only", ignoreCase = true)
+        ) {
+            "تسجيل الدخول المجهول غير مفعّل في Firebase.\n\n" +
+                "الحل: افتح Firebase Console ثم Authentication ثم Sign-in method، " +
+                "وفعّل Anonymous واضغط Save.\n\n" +
+                "إذا كان Anonymous مفعّلاً بالفعل، فتحقق من صلاحيات المشروع وسياسات Identity Platform.\n" +
+                "رمز الخطأ: ${code.ifBlank { "ADMIN_ONLY_OPERATION" }}"
+        } else {
+            "تعذر الاتصال بخدمة الحسابات.\n" +
+                "تحقق من الإنترنت وإعدادات Firebase ثم أعد المحاولة.\n" +
+                "رمز الخطأ: ${code.ifBlank { "غير متوفر" }}\n" +
+                "التفاصيل: ${details.ifBlank { "لا توجد تفاصيل إضافية" }}"
+        }
     }
 
     private fun showError(message: String) {
