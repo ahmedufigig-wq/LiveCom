@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640242758916",
+    "project_id": "livecom-1ccff",
+    "storage_bucket": "livecom-1ccff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640242758916:android:d7e622fb52f7e2a3998c51",
+        "android_client_info": {
+          "package_name": "com.livecom.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr72ikBl1ogLU3himu7EYgpZaCAVtEwwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
