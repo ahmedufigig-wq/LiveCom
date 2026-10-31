@@ -51,7 +51,7 @@ class MainActivity : Activity() {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(28, 28, 28, 28)
-            setBackgroundColor(background)
+            setBackgroundColor(this@MainActivity.background)
         }
         root.addView(label("LiveCom", 36f, gold, true))
         root.addView(label("جارٍ تجهيز حسابك...", 16f, muted))
@@ -62,7 +62,7 @@ class MainActivity : Activity() {
         root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(20, 26, 20, 20)
-            setBackgroundColor(background)
+            setBackgroundColor(this@MainActivity.background)
         }
         val scroll = ScrollView(this)
         val content = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
@@ -141,7 +141,7 @@ class MainActivity : Activity() {
                     val card = LinearLayout(this).apply {
                         orientation = LinearLayout.VERTICAL
                         setPadding(14, 12, 14, 12)
-                        setBackgroundColor(panel)
+                        setBackgroundColor(this@MainActivity.panel)
                     }
                     card.addView(label(name, 18f, gold, true).apply { gravity = Gravity.START })
                     card.addView(label("المضيف: $owner  •  الأعضاء: ${members.size}", 13f, muted).apply {
@@ -180,7 +180,7 @@ class MainActivity : Activity() {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(24, 24, 24, 24)
-            setBackgroundColor(background)
+            setBackgroundColor(this@MainActivity.background)
         }
         root.addView(label("LiveCom", 32f, gold, true))
         root.addView(label(roomName, 24f, white, true).apply { setPadding(0, 20, 0, 10) })
@@ -205,7 +205,7 @@ class MainActivity : Activity() {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
             setPadding(24, 24, 24, 24)
-            setBackgroundColor(background)
+            setBackgroundColor(this@MainActivity.background)
         }
         root.addView(label("LiveCom", 34f, gold, true))
         root.addView(label(message, 15f, white))
@@ -233,9 +233,9 @@ class MainActivity : Activity() {
         setHintTextColor(muted)
         setTextColor(white)
         textSize = 16f
-        singleLine = true
+        isSingleLine = true
         setPadding(14, 10, 14, 10)
-        setBackgroundColor(panel)
+        setBackgroundColor(this@MainActivity.panel)
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
